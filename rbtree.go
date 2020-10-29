@@ -29,6 +29,13 @@ type Item interface {
 	Less(Item) bool
 }
 
+type Int int
+
+func (n Int) Less(b Item) bool {
+	value, _ := b.(Int)
+	return n < value
+}
+
 // Tree represents a red–black tree.
 type Tree struct {
 	length int
@@ -149,7 +156,10 @@ func (t *Tree) deleteOneChild(n *Node) {
 	} else {
 		child = n.right
 	}
-	n.replace(child)
+	t.replace(n, child)
+	if child == nil {
+		return
+	}
 	if n.color == Black {
 		if child.color == Red {
 			child.color = Black
@@ -158,6 +168,22 @@ func (t *Tree) deleteOneChild(n *Node) {
 		}
 	}
 	t.free(n)
+}
+
+func (t *Tree) replace(n, child *Node) {
+	if child != nil {
+		child.parent = n.parent
+	}
+	if n.parent != nil {
+		if n == n.parent.left {
+			n.parent.left = child
+		} else {
+			n.parent.right = child
+		}
+	} else {
+		t.root = child
+	}
+
 }
 
 func (t *Tree) free(n *Node) {
@@ -390,15 +416,4 @@ func (n *Node) rotateRight() *Node {
 	n.parent = newParent
 	newParent.right = n
 	return newParent
-}
-
-func (n *Node) replace(child *Node) {
-	if child != nil {
-		child.parent = n.parent
-	}
-	if n == n.parent.left {
-		n.parent.left = child
-	} else {
-		n.parent.right = child
-	}
 }
