@@ -11,6 +11,36 @@ go get github.com/hslam/rbtree
 ```
 import "github.com/hslam/rbtree"
 ```
+### Usage
+#### Example
+```
+package main
+
+import (
+	"fmt"
+	"github.com/hslam/rbtree"
+)
+
+func main() {
+	t := rbtree.New()
+	str := "Hello World"
+	t.Insert(item(str))
+	fmt.Println(t.Search(item(str)).Item())
+	t.Delete(item(str))
+}
+
+type item string
+
+func (n item) Less(b rbtree.Item) bool {
+	value, _ := b.(item)
+	return n < value
+}
+```
+
+#### Output
+```
+Hello World
+```
 
 ### License
 This package is licensed under a MIT license (Copyright (c) 2020 Meng Huang)
