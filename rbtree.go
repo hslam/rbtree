@@ -333,9 +333,8 @@ func (n *Node) Sibling() *Node {
 	}
 	if n == p.left {
 		return p.right
-	} else {
-		return p.left
 	}
+	return p.left
 }
 
 // Uncle returns the uncle node.
