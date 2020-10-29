@@ -322,7 +322,7 @@ func (n *Node) GrandParent() *Node {
 	return n.parent.parent
 }
 
-// Uncle returns the sibling node.
+// Sibling returns the sibling node.
 func (n *Node) Sibling() *Node {
 	if n == nil {
 		return nil
