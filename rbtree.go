@@ -29,8 +29,10 @@ type Item interface {
 	Less(Item) bool
 }
 
+// Int implements the Item interface.
 type Int int
 
+// Less implements the Item Less method.
 func (n Int) Less(b Item) bool {
 	value, _ := b.(Int)
 	return n < value
