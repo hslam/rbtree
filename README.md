@@ -32,8 +32,7 @@ func main() {
 type item string
 
 func (n item) Less(b rbtree.Item) bool {
-	value, _ := b.(item)
-	return n < value
+	return n < b.(item)
 }
 ```
 
