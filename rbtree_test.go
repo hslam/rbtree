@@ -16,12 +16,12 @@ func testRbtree(n, j int, r bool, t *testing.T) {
 	if r {
 		for i := n - 1; i >= 0; i-- {
 			tree.Insert(Int(i))
-			traverse(tree.Root(), t)
+			testTraversal(tree, t)
 		}
 	} else {
 		for i := 0; i < n; i++ {
 			tree.Insert(Int(i))
-			traverse(tree.Root(), t)
+			testTraversal(tree, t)
 		}
 	}
 	if tree.Length() != n {
@@ -29,11 +29,17 @@ func testRbtree(n, j int, r bool, t *testing.T) {
 	}
 	testSearch(tree, j, t)
 	tree.Delete(Int(j))
-	traverse(tree.Root(), t)
+	testTraversal(tree, t)
 	testNilNode(tree, j, t)
 	if tree.Length() != n-1 {
 		t.Error("")
 	}
+}
+
+func testTraversal(tree *Tree, t *testing.T) {
+	traverse(tree.Root(), t)
+	testIteratorAscend(tree, t)
+	testIteratorDescend(tree, t)
 }
 
 func traverse(node *Node, t *testing.T) {
@@ -50,6 +56,29 @@ func traverse(node *Node, t *testing.T) {
 	}
 }
 
+func testIteratorAscend(tree *Tree, t *testing.T) {
+	iter := tree.Root().Min()
+	next := iter.Next()
+	for iter != nil && next != nil {
+		if !iter.Item().Less(next.Item()) {
+			t.Error("")
+		}
+		iter = next
+		next = iter.Next()
+	}
+}
+
+func testIteratorDescend(tree *Tree, t *testing.T) {
+	iter := tree.Root().Max()
+	last := iter.Last()
+	for iter != nil && last != nil {
+		if !last.Item().Less(iter.Item()) {
+			t.Error("")
+		}
+		iter = last
+		last = iter.Last()
+	}
+}
 func testSearch(tree *Tree, j int, t *testing.T) {
 	if node := tree.SearchNode(Int(j)); node == nil {
 		t.Error("")
