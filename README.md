@@ -71,9 +71,8 @@ func main() {
 
 type Int int
 
-func (a Int) Less(than rbtree.Item) bool {
-	b, _ := than.(Int)
-	return a < b
+func (a Int) Less(b rbtree.Item) bool {
+	return a < b.(Int)
 }
 ```
 #### Red–Black Tree
