@@ -461,7 +461,6 @@ func (n *Node) rotateLeft() *Node {
 
 func (n *Node) rotateRight() *Node {
 	newParent := n.left
-
 	n.left = newParent.right
 	if newParent.right != nil {
 		newParent.right.parent = n
