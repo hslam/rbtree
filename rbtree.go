@@ -397,6 +397,50 @@ func (n *Node) Item() Item {
 	return n.item
 }
 
+// Max returns the max node of this node's subtree.
+func (n *Node) Max() *Node {
+	for n.right != nil {
+		return n.right.Max()
+	}
+	return n
+}
+
+// Min returns the min node of this node's subtree.
+func (n *Node) Min() *Node {
+	for n.left != nil {
+		return n.left.Min()
+	}
+	return n
+}
+
+// Last returns the last node less than this node.
+func (n *Node) Last() *Node {
+	if n.left != nil {
+		return n.left.Max()
+	}
+	left := n
+	p := left.parent
+	for p != nil && left == p.left {
+		left = p
+		p = left.parent
+	}
+	return p
+}
+
+// Next returns the next node more than this node.
+func (n *Node) Next() *Node {
+	if n.right != nil {
+		return n.right.Min()
+	}
+	right := n
+	p := right.parent
+	for p != nil && right == p.right {
+		right = p
+		p = right.parent
+	}
+	return p
+}
+
 func (n *Node) rotateLeft() *Node {
 	newParent := n.right
 	n.right = newParent.left
