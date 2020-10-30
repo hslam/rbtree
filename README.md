@@ -1,4 +1,10 @@
 # rbtree
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/hslam/rbtree)](https://pkg.go.dev/github.com/hslam/rbtree)
+[![Build Status](https://travis-ci.org/hslam/rbtree.svg?branch=master)](https://travis-ci.org/hslam/rbtree)
+[![codecov](https://codecov.io/gh/hslam/rbtree/branch/master/graph/badge.svg)](https://codecov.io/gh/hslam/rbtree)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hslam/rbtree)](https://goreportcard.com/report/github.com/hslam/rbtree)
+[![LICENSE](https://img.shields.io/github/license/hslam/rbtree.svg?style=flat-square)](https://github.com/hslam/rbtree/blob/master/LICENSE)
+
 Package rbtree implements a red–black tree.
 
 ## Get started
@@ -13,7 +19,7 @@ import "github.com/hslam/rbtree"
 ```
 ### Usage
 #### Example
-```
+```go
 package main
 
 import (
@@ -42,7 +48,7 @@ Hello World
 ```
 
 #### Iterator Example
-```
+```go
 package main
 
 import (
