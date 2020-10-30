@@ -8,6 +8,8 @@ func TestRbtree(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		testRbtree(100, i, true, t)
 		testRbtree(100, i, false, t)
+		testRbtreeM(100, i+1, true, t)
+		testRbtreeM(100, i+1, false, t)
 	}
 }
 
@@ -33,6 +35,62 @@ func testRbtree(n, j int, r bool, t *testing.T) {
 	testNilNode(tree, j, t)
 	if tree.Length() != n-1 {
 		t.Error("")
+	}
+}
+
+func testRbtreeM(n, j int, r bool, t *testing.T) {
+	{
+		tree := New()
+		if r {
+			for i := n; i > 0; i-- {
+				tree.Insert(Int(i))
+				tree.Insert(Int(-i))
+				testTraversal(tree, t)
+			}
+		} else {
+			for i := 1; i < n+1; i++ {
+				tree.Insert(Int(i))
+				tree.Insert(Int(-i))
+				testTraversal(tree, t)
+			}
+		}
+		if tree.Length() != n*2 {
+			t.Error("")
+		}
+		testSearch(tree, j, t)
+		tree.Delete(Int(j))
+		testTraversal(tree, t)
+		testNilNode(tree, j, t)
+		if tree.Length() != n*2-1 {
+			t.Error("")
+		}
+	}
+	{
+		tree := New()
+		if r {
+			for i := n; i > 0; i-- {
+				tree.Insert(Int(i))
+				tree.Insert(Int(-i))
+				testTraversal(tree, t)
+			}
+		} else {
+			for i := 1; i < n+1; i++ {
+				tree.Insert(Int(i))
+				tree.Insert(Int(-i))
+				testTraversal(tree, t)
+			}
+		}
+		if tree.Length() != n*2 {
+			t.Error("")
+		}
+		j = -j
+		testSearch(tree, j, t)
+		tree.Delete(Int(j))
+		testTraversal(tree, t)
+		testNilNode(tree, j, t)
+		if tree.Length() != n*2-1 {
+			t.Error("")
+		}
 	}
 }
 
@@ -97,6 +155,50 @@ func testNilNode(tree *Tree, j int, t *testing.T) {
 	if node := tree.Search(Int(j)); node != nil {
 		t.Error("")
 	}
+}
+
+func TestInsertCase1(t *testing.T) {
+	tree := New()
+	tree.Insert(Int(13))
+	testTraversal(tree, t)
+}
+
+func TestInsertCase2(t *testing.T) {
+	tree := New()
+	tree.Insert(Int(13))
+	tree.Insert(Int(8))
+	testTraversal(tree, t)
+	tree.Clear()
+	tree.Insert(Int(13))
+	tree.Insert(Int(17))
+	testTraversal(tree, t)
+}
+
+func TestInsertCase3(t *testing.T) {
+	tree := New()
+	tree.Insert(Int(13))
+	tree.Insert(Int(8))
+	tree.Insert(Int(17))
+	tree.Insert(Int(1))
+	testTraversal(tree, t)
+	tree.Clear()
+	tree.Insert(Int(13))
+	tree.Insert(Int(8))
+	tree.Insert(Int(17))
+	tree.Insert(Int(11))
+	testTraversal(tree, t)
+	tree.Clear()
+	tree.Insert(Int(13))
+	tree.Insert(Int(8))
+	tree.Insert(Int(17))
+	tree.Insert(Int(15))
+	testTraversal(tree, t)
+	tree.Clear()
+	tree.Insert(Int(13))
+	tree.Insert(Int(8))
+	tree.Insert(Int(17))
+	tree.Insert(Int(25))
+	testTraversal(tree, t)
 }
 
 func TestEmptyTree(t *testing.T) {
