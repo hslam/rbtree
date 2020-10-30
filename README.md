@@ -70,8 +70,8 @@ func (a Int) Less(than rbtree.Item) bool {
 	return a < b
 }
 ```
-#### Tree
-<img src="https://raw.githubusercontent.com/hslam/rbtree/master/tree.png" alt="tree" align=center>
+#### Red–Black Tree
+<img src="https://raw.githubusercontent.com/hslam/rbtree/master/rbtree.png" alt="rbtree" align=center>
 
 #### Output
 ```
