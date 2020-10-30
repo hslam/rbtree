@@ -79,6 +79,7 @@ func testIteratorDescend(tree *Tree, t *testing.T) {
 		last = iter.Last()
 	}
 }
+
 func testSearch(tree *Tree, j int, t *testing.T) {
 	if node := tree.SearchNode(Int(j)); node == nil {
 		t.Error("")
@@ -91,8 +92,43 @@ func testSearch(tree *Tree, j int, t *testing.T) {
 		t.Error("")
 	}
 }
+
 func testNilNode(tree *Tree, j int, t *testing.T) {
 	if node := tree.Search(Int(j)); node != nil {
+		t.Error("")
+	}
+}
+
+func TestEmptyTree(t *testing.T) {
+	tree := New()
+	if tree.Root().Left() != nil {
+		t.Error("")
+	}
+	if tree.Root().Right() != nil {
+		t.Error("")
+	}
+	if tree.Root().Item() != nil {
+		t.Error("")
+	}
+	if tree.Root().Parent() != nil {
+		t.Error("")
+	}
+	if tree.Root().GrandParent() != nil {
+		t.Error("")
+	}
+	if tree.Root().Sibling() != nil {
+		t.Error("")
+	}
+	tree.Insert(Int(0))
+	if tree.Root().GrandParent() != nil {
+		t.Error("")
+	}
+	if tree.Root().Sibling() != nil {
+		t.Error("")
+	}
+	tree.Clear()
+	tree.Delete(Int(0))
+	if tree.Length() != 0 {
 		t.Error("")
 	}
 }
@@ -101,7 +137,7 @@ func BenchmarkRBTree(b *testing.B) {
 	tree := New()
 	for i := 0; i < b.N; i++ {
 		tree.Insert(Int(i))
-		tree.Search(Int(i))
+		//tree.Search(Int(i))
 		//tree.Delete(Int(i))
 	}
 }

@@ -33,22 +33,20 @@ type Item interface {
 	Less(than Item) bool
 }
 
-// Int implements the Item interface.
+// Int implements the Item interface for int.
 type Int int
 
-// Less implements the Item Less method.
-func (a Int) Less(than Item) bool {
-	b, _ := than.(Int)
-	return a < b
+// Less returns true if int(a) < int(b).
+func (a Int) Less(b Item) bool {
+	return a < b.(Int)
 }
 
-// String implements the Item interface.
+// String implements the Item interface for string.
 type String string
 
-// Less implements the Item Less method.
-func (a String) Less(than Item) bool {
-	b, _ := than.(String)
-	return a < b
+// Less returns true if string(a) < string(b).
+func (a String) Less(b Item) bool {
+	return a < b.(String)
 }
 
 // Tree represents a red–black tree.
