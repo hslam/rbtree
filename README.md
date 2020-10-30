@@ -23,10 +23,10 @@ import (
 
 func main() {
 	t := rbtree.New()
-	str := "Hello World"
-	t.Insert(item(str))
-	fmt.Println(t.Search(item(str)).Item())
-	t.Delete(item(str))
+	str := item("Hello World")
+	t.Insert(str)
+	fmt.Println(t.Search(str))
+	t.Delete(str)
 }
 
 type item string

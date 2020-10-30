@@ -51,14 +51,36 @@ func traverse(node *Node, t *testing.T) {
 }
 
 func testSearch(tree *Tree, j int, t *testing.T) {
-	if node := tree.Search(Int(j)); node == nil {
+	if node := tree.SearchNode(Int(j)); node == nil {
 		t.Error("")
 	} else if int(node.Item().(Int)) != j {
+		t.Error("")
+	}
+	if item := tree.Search(Int(j)); item == nil {
+		t.Error("")
+	} else if int(item.(Int)) != j {
 		t.Error("")
 	}
 }
 func testNilNode(tree *Tree, j int, t *testing.T) {
 	if node := tree.Search(Int(j)); node != nil {
+		t.Error("")
+	}
+}
+
+func BenchmarkRBTree(b *testing.B) {
+	tree := New()
+	for i := 0; i < b.N; i++ {
+		tree.Insert(Int(i))
+		tree.Search(Int(i))
+		//tree.Delete(Int(i))
+	}
+}
+
+func TestStringLess(t *testing.T) {
+	a := String("a")
+	b := String("b")
+	if !a.Less(b) {
 		t.Error("")
 	}
 }

@@ -6,9 +6,13 @@
 // Red–black tree properties: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
 //
 // 1. Each node is either red or black.
+//
 // 2. The root is black. This rule is sometimes omitted. Since the root can always be changed from red to black, but not necessarily vice versa, this rule has little effect on analysis.
+//
 // 3. All leaves (NIL) are black.
+//
 // 4. If a node is red, then both its children are black.
+//
 // 5. Every path from a given node to any of its descendant NIL nodes goes through the same number of black nodes.
 //
 package rbtree
@@ -26,16 +30,25 @@ const (
 // Item represents a value in the tree.
 type Item interface {
 	// Less compares whether the current item is less than the given Item.
-	Less(Item) bool
+	Less(than Item) bool
 }
 
 // Int implements the Item interface.
 type Int int
 
 // Less implements the Item Less method.
-func (n Int) Less(b Item) bool {
-	value, _ := b.(Int)
-	return n < value
+func (a Int) Less(than Item) bool {
+	b, _ := than.(Int)
+	return a < b
+}
+
+// String implements the Item interface.
+type String string
+
+// Less implements the Item Less method.
+func (a String) Less(than Item) bool {
+	b, _ := than.(String)
+	return a < b
 }
 
 // Tree represents a red–black tree.
@@ -54,8 +67,18 @@ func (t *Tree) Length() int {
 	return t.length
 }
 
-// Search searchs the node of the red–black tree with the item.
-func (t *Tree) Search(item Item) *Node {
+// Root returns the root node of the rbtree.
+func (t *Tree) Root() *Node {
+	return t.root
+}
+
+// Search searchs the item of the red–black tree.
+func (t *Tree) Search(item Item) Item {
+	return t.search(item).Item()
+}
+
+// SearchNode searchs the node of the red–black tree with the item.
+func (t *Tree) SearchNode(item Item) *Node {
 	return t.search(item)
 }
 
@@ -291,11 +314,6 @@ func (t *Tree) search(item Item) *Node {
 		}
 	}
 	return nil
-}
-
-// Root returns the root node of the rbtree.
-func (t *Tree) Root() *Node {
-	return t.root
 }
 
 // Node represents a node in the red–black tree.
