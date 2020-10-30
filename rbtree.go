@@ -70,12 +70,12 @@ func (t *Tree) Root() *Node {
 	return t.root
 }
 
-// Search searchs the item of the red–black tree.
+// Search searches the item of the red–black tree.
 func (t *Tree) Search(item Item) Item {
 	return t.search(item).Item()
 }
 
-// SearchNode searchs the node of the red–black tree with the item.
+// SearchNode searches the node of the red–black tree with the item.
 func (t *Tree) SearchNode(item Item) *Node {
 	return t.search(item)
 }
