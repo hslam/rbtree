@@ -201,6 +201,17 @@ func TestInsertCase3(t *testing.T) {
 	testTraversal(tree, t)
 }
 
+func TestInsertCase4(t *testing.T) {
+	tree := New()
+	l := []Int{13, 8, 17, 10, 15, 25}
+	for _, v := range l {
+		tree.Insert(v)
+		testTraversal(tree, t)
+	}
+	tree.Insert(Int(9))
+	testTraversal(tree, t)
+}
+
 func TestEmptyTree(t *testing.T) {
 	tree := New()
 	if tree.Root().Left() != nil {
