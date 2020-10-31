@@ -7,6 +7,13 @@
 
 Package rbtree implements a red–black tree.
 
+**[Properties](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree "properties")**
+* Each node is either red or black.
+* The root is black. This rule is sometimes omitted. Since the root can always be changed from red to black, but not necessarily vice versa, this rule has little effect on analysis.
+* All leaves (NIL) are black.
+* If a node is red, then both its children are black.
+* Every path from a given node to any of its descendant NIL nodes goes through the same number of black nodes.
+
 ## Get started
 
 ### Install
