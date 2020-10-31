@@ -60,14 +60,24 @@ func New() *Tree {
 	return &Tree{}
 }
 
-// Length returns the number of items currently in the rbtree.
+// Length returns the number of items currently in the red–black tree.
 func (t *Tree) Length() int {
 	return t.length
 }
 
-// Root returns the root node of the rbtree.
+// Root returns the root node of the red–black tree.
 func (t *Tree) Root() *Node {
 	return t.root
+}
+
+// Max returns the max node of the red–black tree.
+func (t *Tree) Max() *Node {
+	return t.root.Max()
+}
+
+// Min returns the min node of the red–black tree.
+func (t *Tree) Min() *Node {
+	return t.root.Min()
 }
 
 // Search searches the item of the red–black tree.
@@ -80,7 +90,7 @@ func (t *Tree) SearchNode(item Item) *Node {
 	return t.search(item)
 }
 
-// Insert inserts the item into the rbtree.
+// Insert inserts the item into the red–black tree.
 func (t *Tree) Insert(item Item) {
 	n := t.root
 	var p *Node
@@ -156,13 +166,13 @@ func (t *Tree) insertCase4Step2(n *Node) {
 	g.color = Red
 }
 
-// Clear removes all items from the rbtree.
+// Clear removes all items from the red–black tree.
 func (t *Tree) Clear() {
 	t.root = nil
 	t.length = 0
 }
 
-// Delete deletes the node by the item.
+// Delete deletes the node of the red–black tree with the item.
 func (t *Tree) Delete(item Item) {
 	n := t.search(item)
 	if n == nil {
@@ -357,13 +367,7 @@ func (n *Node) Parent() *Node {
 
 // GrandParent returns the grandparent node.
 func (n *Node) GrandParent() *Node {
-	if n == nil {
-		return nil
-	}
-	if n.parent == nil {
-		return nil
-	}
-	return n.parent.parent
+	return n.Parent().Parent()
 }
 
 // Sibling returns the sibling node.
@@ -383,8 +387,7 @@ func (n *Node) Sibling() *Node {
 
 // Uncle returns the uncle node.
 func (n *Node) Uncle() *Node {
-	p := n.parent
-	return p.Sibling()
+	return n.Parent().Sibling()
 }
 
 // Item returns the item of this node.
@@ -397,6 +400,9 @@ func (n *Node) Item() Item {
 
 // Max returns the max node of this node's subtree.
 func (n *Node) Max() *Node {
+	if n == nil {
+		return nil
+	}
 	for n.right != nil {
 		return n.right.Max()
 	}
@@ -405,6 +411,9 @@ func (n *Node) Max() *Node {
 
 // Min returns the min node of this node's subtree.
 func (n *Node) Min() *Node {
+	if n == nil {
+		return nil
+	}
 	for n.left != nil {
 		return n.left.Min()
 	}
@@ -413,6 +422,9 @@ func (n *Node) Min() *Node {
 
 // Last returns the last node less than this node.
 func (n *Node) Last() *Node {
+	if n == nil {
+		return nil
+	}
 	if n.left != nil {
 		return n.left.Max()
 	}
@@ -427,6 +439,9 @@ func (n *Node) Last() *Node {
 
 // Next returns the next node more than this node.
 func (n *Node) Next() *Node {
+	if n == nil {
+		return nil
+	}
 	if n.right != nil {
 		return n.right.Min()
 	}

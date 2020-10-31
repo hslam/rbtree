@@ -214,6 +214,18 @@ func TestInsertCase4(t *testing.T) {
 
 func TestEmptyTree(t *testing.T) {
 	tree := New()
+	if tree.Root() != nil {
+		t.Error("")
+	}
+	if tree.Min() != nil {
+		t.Error("")
+	}
+	if tree.Max() != nil {
+		t.Error("")
+	}
+	if tree.Min() != nil {
+		t.Error("")
+	}
 	if tree.Root().Left() != nil {
 		t.Error("")
 	}
@@ -230,6 +242,12 @@ func TestEmptyTree(t *testing.T) {
 		t.Error("")
 	}
 	if tree.Root().Sibling() != nil {
+		t.Error("")
+	}
+	if tree.Root().Last() != nil {
+		t.Error("")
+	}
+	if tree.Root().Next() != nil {
 		t.Error("")
 	}
 	tree.Insert(Int(0))

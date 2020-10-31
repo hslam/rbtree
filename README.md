@@ -28,11 +28,11 @@ import (
 )
 
 func main() {
-	t := rbtree.New()
+	tree := rbtree.New()
 	str := item("Hello World")
-	t.Insert(str)
-	fmt.Println(t.Search(str))
-	t.Delete(str)
+	tree.Insert(str)
+	fmt.Println(tree.Search(str))
+	tree.Delete(str)
 }
 
 type item string
@@ -57,12 +57,12 @@ import (
 )
 
 func main() {
-	t := rbtree.New()
+	tree := rbtree.New()
 	l := []Int{13, 8, 17, 1, 11, 15, 25, 6, 22, 27}
 	for _, v := range l {
-		t.Insert(v)
+		tree.Insert(v)
 	}
-	iter := t.Root().Min()
+	iter := tree.Min()
 	for iter != nil {
 		fmt.Printf("%d\t", iter.Item())
 		iter = iter.Next()
