@@ -152,7 +152,7 @@ func testSearch(tree *Tree, j int, t *testing.T) {
 }
 
 func testNilNode(tree *Tree, j int, t *testing.T) {
-	if node := tree.Search(Int(j)); node != nil {
+	if item := tree.Search(Int(j)); item != nil {
 		t.Error("")
 	}
 }
