@@ -7,7 +7,8 @@
 
 Package rbtree implements a red–black tree.
 
-**[Properties](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree "properties")**
+#### [Properties](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree "properties")
+In addition to the requirements imposed on a binary search tree the following must be satisfied by a red–black tree:
 * Each node is either red or black.
 * The root is black. This rule is sometimes omitted. Since the root can always be changed from red to black, but not necessarily vice versa, this rule has little effect on analysis.
 * All leaves (NIL) are black.
