@@ -145,9 +145,24 @@ func testRbtreeM(n, j int, r bool, t *testing.T) {
 }
 
 func testTraversal(tree *Tree, t *testing.T) {
+	count := 0
+	testLength(tree.Root(), &count)
+	if tree.Length() != count {
+		t.Error(tree.Length(), count)
+	}
 	traverse(tree.Root(), t)
 	testIteratorAscend(tree, t)
 	testIteratorDescend(tree, t)
+}
+
+func testLength(node *Node, count *int) {
+	if node.Item() != nil {
+		*count++
+	}
+	if node != nil {
+		testLength(node.Left(), count)
+		testLength(node.Right(), count)
+	}
 }
 
 func traverse(node *Node, t *testing.T) {
