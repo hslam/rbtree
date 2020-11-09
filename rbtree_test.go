@@ -44,11 +44,13 @@ func testRbtree(n, j int, r bool, t *testing.T) {
 		for i := n - 1; i >= 0; i-- {
 			tree.Delete(Int(i))
 			testTraversal(tree, t)
+			testNilNode(tree, i, t)
 		}
 	} else {
 		for i := 0; i < n; i++ {
 			tree.Delete(Int(i))
 			testTraversal(tree, t)
+			testNilNode(tree, i, t)
 		}
 	}
 	if tree.Length() != 0 {
@@ -95,15 +97,19 @@ func testRbtreeM(n, j int, r bool, t *testing.T) {
 		for i := n; i > 0; i-- {
 			tree.Delete(Int(i))
 			testTraversal(tree, t)
+			testNilNode(tree, i, t)
 			tree.Delete(Int(-i))
 			testTraversal(tree, t)
+			testNilNode(tree, -i, t)
 		}
 	} else {
 		for i := 1; i < n+1; i++ {
 			tree.Delete(Int(i))
 			testTraversal(tree, t)
+			testNilNode(tree, i, t)
 			tree.Delete(Int(-i))
 			testTraversal(tree, t)
+			testNilNode(tree, -i, t)
 		}
 	}
 	if tree.Length() != 0 {
