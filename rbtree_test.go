@@ -140,6 +140,12 @@ func traverse(node *Node, t *testing.T) {
 			}
 		}
 	}
+	if node.Left() != nil && node.Left().parent != node {
+		t.Error("")
+	}
+	if node.Right() != nil && node.Right().parent != node {
+		t.Error("")
+	}
 	if node != nil {
 		traverse(node.Left(), t)
 		traverse(node.Right(), t)
