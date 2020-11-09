@@ -178,11 +178,18 @@ func (t *Tree) Delete(item Item) {
 	if n == nil {
 		return
 	}
-	t.deleteOneChild(n)
+	if n.left != nil && n.right != nil {
+		min := n.right.Min()
+		n.item = min.item
+		t.deleteOneChild(min)
+	} else {
+		t.deleteOneChild(n)
+	}
 	t.length--
 }
 
 func (t *Tree) deleteOneChild(n *Node) {
+	// Precondition: n has at most one non-leaf child.
 	var child *Node
 	if n.right == nil {
 		child = n.left
@@ -193,8 +200,8 @@ func (t *Tree) deleteOneChild(n *Node) {
 	if child == nil {
 		return
 	}
-	if n.color == Black {
-		if child.color == Red {
+	if n.Color() == Black {
+		if child.Color() == Red {
 			child.color = Black
 		} else {
 			t.deleteCase1(child)
@@ -216,7 +223,6 @@ func (t *Tree) replace(n, child *Node) {
 	} else {
 		t.root = child
 	}
-
 }
 
 func (t *Tree) free(n *Node) {
@@ -231,50 +237,60 @@ func (t *Tree) deleteCase1(n *Node) {
 
 func (t *Tree) deleteCase2(n *Node) {
 	s := n.Sibling()
-	if s.color == Red {
+	if s.Color() == Red {
 		n.parent.color = Red
 		s.color = Black
 		if n == n.parent.left {
-			n.parent.rotateLeft()
+			t.rotateLeft(n.parent)
 		} else {
-			n.parent.rotateRight()
+			t.rotateRight(n.parent)
 		}
 	}
 	t.deleteCase3(n)
+
 }
 
 func (t *Tree) deleteCase3(n *Node) {
 	s := n.Sibling()
-	if n.parent.color == Black && s.color == Black && s.left.color == Black && s.right.color == Black {
-		s.color = Red
-		t.deleteCase1(n.parent)
-	} else {
-		t.deleteCase4(n)
+	if s != nil {
+		if n.parent.Color() == Black && s.Color() == Black && s.left.Color() == Black && s.right.Color() == Black {
+			s.color = Red
+			t.deleteCase1(n.parent)
+		} else {
+			t.deleteCase4(n)
+		}
 	}
 }
 
 func (t *Tree) deleteCase4(n *Node) {
 	s := n.Sibling()
-	if n.parent.color == Red && s.color == Black && s.left.color == Black && s.right.color == Black {
+	if n.parent.Color() == Red && s.Color() == Black && s.left.Color() == Black && s.right.Color() == Black {
 		s.color = Red
 		n.parent.color = Black
 	} else {
 		t.deleteCase5(n)
 	}
-
 }
 
 func (t *Tree) deleteCase5(n *Node) {
 	s := n.Sibling()
-	if s.color == Black {
-		if n == n.parent.left && s.right.color == Black && s.left.color == Red {
+	// This if statement is trivial, due to case 2 (even though case 2 changed
+	// the sibling to a sibling's child, the sibling's child can't be red, since
+	// no red parent can have a red child).
+	if s.Color() == Black {
+		// The following statements just force the red to be on the left of the
+		// left of the parent, or right of the right, so case six will rotate
+		// correctly.
+		if n == n.parent.left && s.right.Color() == Black && s.left.Color() == Red {
+			// This last test is trivial too due to cases 2-4.
 			s.color = Red
 			s.left.color = Black
-			s.rotateRight()
-		} else if n == n.parent.right && s.left.color == Black && s.right.color == Red {
+			t.rotateRight(s)
+		} else if n == n.parent.right && s.left.Color() == Black && s.right.Color() == Red {
+			// This last test is trivial too due to cases 2-4.
 			s.color = Red
 			s.right.color = Black
-			s.rotateLeft()
+			t.rotateLeft(s)
 		}
 	}
 	t.deleteCase6(n)
@@ -286,12 +302,11 @@ func (t *Tree) deleteCase6(n *Node) {
 	n.parent.color = Black
 	if n == n.parent.left {
 		s.right.color = Black
-		n.parent.rotateLeft()
+		t.rotateLeft(n.parent)
 	} else {
 		s.left.color = Black
-		n.parent.rotateRight()
+		t.rotateRight(n.parent)
 	}
-
 }
 
 func (t *Tree) rotateLeft(n *Node) {
