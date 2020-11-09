@@ -40,6 +40,20 @@ func testRbtree(n, j int, r bool, t *testing.T) {
 	if tree.Length() != n-1 {
 		t.Error("")
 	}
+	if r {
+		for i := n - 1; i >= 0; i-- {
+			tree.Delete(Int(i))
+			testTraversal(tree, t)
+		}
+	} else {
+		for i := 0; i < n; i++ {
+			tree.Delete(Int(i))
+			testTraversal(tree, t)
+		}
+	}
+	if tree.Length() != 0 {
+		t.Error(tree.Length())
+	}
 }
 
 func testRbtreeM(n, j int, r bool, t *testing.T) {
@@ -68,6 +82,22 @@ func testRbtreeM(n, j int, r bool, t *testing.T) {
 		if tree.Length() != n*2-1 {
 			t.Error("")
 		}
+		if r {
+			for i := n; i > 0; i-- {
+				tree.Delete(Int(i))
+				tree.Delete(Int(-i))
+				testTraversal(tree, t)
+			}
+		} else {
+			for i := 1; i < n+1; i++ {
+				tree.Delete(Int(i))
+				tree.Delete(Int(-i))
+				testTraversal(tree, t)
+			}
+		}
+		if tree.Length() != 0 {
+			t.Error(tree.Length())
+		}
 	}
 	{
 		tree := New()
@@ -94,6 +124,22 @@ func testRbtreeM(n, j int, r bool, t *testing.T) {
 		testNilNode(tree, j, t)
 		if tree.Length() != n*2-1 {
 			t.Error("")
+		}
+		if r {
+			for i := n; i > 0; i-- {
+				tree.Delete(Int(i))
+				tree.Delete(Int(-i))
+				testTraversal(tree, t)
+			}
+		} else {
+			for i := 1; i < n+1; i++ {
+				tree.Delete(Int(i))
+				tree.Delete(Int(-i))
+				testTraversal(tree, t)
+			}
+		}
+		if tree.Length() != 0 {
+			t.Error(tree.Length())
 		}
 	}
 }
