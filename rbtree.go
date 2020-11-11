@@ -326,14 +326,14 @@ func (t *Tree) rotateRight(n *Node) {
 }
 
 func (t *Tree) search(item Item) *Node {
-	x := t.root
-	for x != nil {
-		if item.Less(x.item) {
-			x = x.left
-		} else if x.item.Less(item) {
-			x = x.right
+	n := t.root
+	for n != nil {
+		if item.Less(n.item) {
+			n = n.left
+		} else if n.item.Less(item) {
+			n = n.right
 		} else {
-			return x
+			return n
 		}
 	}
 	return nil
