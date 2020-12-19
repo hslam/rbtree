@@ -1,6 +1,6 @@
 # rbtree
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/hslam/rbtree)](https://pkg.go.dev/github.com/hslam/rbtree)
-[![Build Status](https://travis-ci.org/hslam/rbtree.svg?branch=master)](https://travis-ci.org/hslam/rbtree)
+[![Build Status](https://github.com/hslam/rbtree/workflows/build/badge.svg)](https://github.com/hslam/rbtree/actions)
 [![codecov](https://codecov.io/gh/hslam/rbtree/branch/master/graph/badge.svg)](https://codecov.io/gh/hslam/rbtree)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hslam/rbtree)](https://goreportcard.com/report/github.com/hslam/rbtree)
 [![LICENSE](https://img.shields.io/github/license/hslam/rbtree.svg?style=flat-square)](https://github.com/hslam/rbtree/blob/master/LICENSE)
