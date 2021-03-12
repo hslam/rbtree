@@ -94,13 +94,15 @@ func (t *Tree) SearchNode(item Item) *Node {
 func (t *Tree) Insert(item Item) {
 	n := t.root
 	var p *Node
-
 	for n != nil {
 		p = n
 		if item.Less(n.item) {
 			n = n.left
-		} else {
+		} else if n.item.Less(item) {
 			n = n.right
+		} else {
+			n.item = item
+			return
 		}
 	}
 	n = &Node{parent: p, color: Red, item: item}
